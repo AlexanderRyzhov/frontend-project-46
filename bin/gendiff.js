@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import generateDiff from '../src/generatediff.js';
+
 const program = new Command();
 
 program
@@ -9,10 +11,10 @@ program
   .option('-f, --format <type>', 'output format')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(`filepath1:  ${filepath1}`);
-    console.log(`filepath2:  ${filepath2}`);
-    const options = program.opts();
-    if (options.format) console.log(`format: ${options.format}`);
+    const result = generateDiff(filepath1, filepath2);
+    console.log(result);
+    // const options = program.opts();
+    // if (options.format) console.log(`format: ${options.format}`);
   });
-  
-  program.parse();
+
+program.parse();
