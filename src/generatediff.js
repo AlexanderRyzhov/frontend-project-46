@@ -1,5 +1,14 @@
 import _ from 'lodash';
+import { extname } from 'path';
+import * as fs from 'node:fs';
 import parse from './parsers.js';
+
+const readAndParseFile = (filepath) => {
+  const data = fs.readFileSync(filepath);
+  const format = extname(filepath);
+  const obj = parse(data, format);
+  return obj;
+};
 
 const getAllKeys = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
@@ -9,8 +18,8 @@ const getAllKeys = (obj1, obj2) => {
 };
 
 const generateDiff = (filepath1, filepath2) => {
-  const obj1 = parse(filepath1);
-  const obj2 = parse(filepath2);
+  const obj1 = readAndParseFile(filepath1);
+  const obj2 = readAndParseFile(filepath2);
   const keys = getAllKeys(obj1, obj2);
   let diffs = [];
   keys.forEach((key) => {
