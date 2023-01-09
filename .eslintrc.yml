@@ -1,8 +1,8 @@
 env:
   es2021: true
+  jest: true
 extends:
   - airbnb-base
-  - eslint-plugin-jest
 overrides: []
 parserOptions:
   ecmaVersion: latest
