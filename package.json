@@ -5,7 +5,10 @@
   "description": "[![Actions Status](https://github.com/AlexanderRyzhov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/AlexanderRyzhov/frontend-project-46/actions)",
   "main": "src/generatediff.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "transform": {}
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -27,6 +30,8 @@
   "devDependencies": {
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0"
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.2.1",
+    "jest": "^29.3.1"
   }
 }

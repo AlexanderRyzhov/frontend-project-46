@@ -1,9 +1,6 @@
-import * as fs from 'node:fs';
 import _ from 'lodash';
 
-const generateDiff = (filepath1, filepath2) => {
-  const json1 = fs.readFileSync(filepath1);
-  const json2 = fs.readFileSync(filepath2);
+const generateDiff = (json1, json2) => {
   const obj1 = JSON.parse(json1);
   const obj2 = JSON.parse(json2);
   const keys1 = _.keys(obj1);
