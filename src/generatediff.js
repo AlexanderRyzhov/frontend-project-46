@@ -8,26 +8,25 @@ const generateDiff = (json1, json2) => {
   const keys = _.sortBy(_.uniq([...keys1, ...keys2]));
   const diffs = [];
   keys.forEach((key) => {
+    const val1 = _.get(obj1, key);
+    const val2 = _.get(obj2, key);
+    let line;
+    let line2;
     if (_.has(obj1, key) && _.has(obj2, key)) {
-      const val1 = _.get(obj1, key);
-      const val2 = _.get(obj2, key);
       if (val1 === val2) {
-        const line = `    ${key}: ${val1}`;
-        diffs.push(line);
+        line = `    ${key}: ${val1}`;
       } else {
-        const line1 = `  - ${key}: ${val1}`;
-        const line2 = `  + ${key}: ${val2}`;
-        diffs.push(line1);
-        diffs.push(line2);
+        line = `  - ${key}: ${val1}`;
+        line2 = `  + ${key}: ${val2}`;
       }
     } else if (_.has(obj1, key)) {
-      const val1 = _.get(obj1, key);
-      const line = `  - ${key}: ${val1}`;
-      diffs.push(line);
+      line = `  - ${key}: ${val1}`;
     } else {
-      const val2 = _.get(obj2, key);
-      const line = `  + ${key}: ${val2}`;
-      diffs.push(line);
+      line = `  + ${key}: ${val2}`;
+    }
+    diffs.push(line);
+    if (line2) {
+      diffs.push(line2);
     }
   });
   const output = `{\n${diffs.join('\n')}\n}`;
