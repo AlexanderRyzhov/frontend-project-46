@@ -1,12 +1,17 @@
 import _ from 'lodash';
 
-const generateDiff = (json1, json2) => {
-  const obj1 = JSON.parse(json1);
-  const obj2 = JSON.parse(json2);
+const getAllKeys = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
   const keys2 = _.keys(obj2);
   const keys = _.sortBy(_.uniq([...keys1, ...keys2]));
-  const diffs = [];
+  return keys;
+};
+
+const generateDiff = (json1, json2) => {
+  const obj1 = JSON.parse(json1);
+  const obj2 = JSON.parse(json2);
+  const keys = getAllKeys(obj1, obj2);
+  let diffs = [];
   keys.forEach((key) => {
     const val1 = _.get(obj1, key);
     const val2 = _.get(obj2, key);
@@ -19,15 +24,10 @@ const generateDiff = (json1, json2) => {
         line = `  - ${key}: ${val1}`;
         line2 = `  + ${key}: ${val2}`;
       }
-    } else if (_.has(obj1, key)) {
-      line = `  - ${key}: ${val1}`;
     } else {
-      line = `  + ${key}: ${val2}`;
+      line = (_.has(obj1, key)) ? `  - ${key}: ${val1}` : `  + ${key}: ${val2}`;
     }
-    diffs.push(line);
-    if (line2) {
-      diffs.push(line2);
-    }
+    diffs = !line2 ? [...diffs, line] : [...diffs, line, line2];
   });
   const output = `{\n${diffs.join('\n')}\n}`;
   return output;
