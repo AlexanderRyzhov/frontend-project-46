@@ -1,6 +1,9 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/AlexanderRyzhov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/AlexanderRyzhov/frontend-project-46/actions)
 
+### My-check tests and linter status:
+[![my-check](https://github.com/AlexanderRyzhov/frontend-project-46/actions/workflows/my-check.yml/badge.svg)](https://github.com/AlexanderRyzhov/frontend-project-46/actions/workflows/my-check.yml)
+
 ### CodeClimate Maintainability status:
 [![Maintainability](https://api.codeclimate.com/v1/badges/c9fed677ad0202ce62cd/maintainability)](https://codeclimate.com/github/AlexanderRyzhov/frontend-project-46/maintainability)
 
