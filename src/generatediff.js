@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import parse from './parsers.js';
 
 const getAllKeys = (obj1, obj2) => {
   const keys1 = _.keys(obj1);
@@ -7,9 +8,9 @@ const getAllKeys = (obj1, obj2) => {
   return keys;
 };
 
-const generateDiff = (json1, json2) => {
-  const obj1 = JSON.parse(json1);
-  const obj2 = JSON.parse(json2);
+const generateDiff = (filepath1, filepath2) => {
+  const obj1 = parse(filepath1);
+  const obj2 = parse(filepath2);
   const keys = getAllKeys(obj1, obj2);
   let diffs = [];
   keys.forEach((key) => {
