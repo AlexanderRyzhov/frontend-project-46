@@ -37,7 +37,7 @@ describe('generateDiff - flat .json files compare', () => {
   });
 });
 
-describe('generateDiff - flat .yaml files compare', () => {
+describe('generateDiff - flat .yml files compare', () => {
   test('no diff', () => {
     const filepath1 = getFixturePath('file1.yml');
     const result11 = fs.readFileSync(getFixturePath('result11.txt'), 'utf-8');
