@@ -1,5 +1,6 @@
-// const stylish = (data) => data;
-const formatDiff = (data) => {
+import _ from 'lodash';
+
+const stylish = (data) => {
   const replacer = ' ';
   const spacesCount = 4;
   const iter = (value, depth) => {
@@ -10,6 +11,15 @@ const formatDiff = (data) => {
       return 'null';
     }
     if (!Array.isArray(value)) {
+      if (typeof value === 'object') {
+        const currentDepth = depth + 1;
+        const prefix = replacer.repeat(spacesCount * (currentDepth) - 2);
+        const bracePrefix = replacer.repeat(spacesCount * (depth));
+        const keys = _.sortBy(_.keys(value));
+        const lines = keys.map((key) => `${prefix}  ${key}: ${iter(value[key], currentDepth)}`);
+        const output = ['{', ...lines, `${bracePrefix}}`].join('\n');
+        return output;
+      }
       return value.toString();
     }
     const currentDepth = depth + 1;
@@ -50,6 +60,14 @@ const formatDiff = (data) => {
     return output;
   };
   return iter(data, 0);
+};
+
+const formatDiff = (data, formatter = 'stylish') => {
+  let format;
+  if (formatter === 'stylish') {
+    format = stylish;
+  }
+  return format(data);
 };
 
 export default formatDiff;
