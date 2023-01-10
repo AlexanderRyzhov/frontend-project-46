@@ -1,26 +1,19 @@
 import _ from 'lodash';
 
 const stylish = (data, depth = 0) => {
+  if (data === undefined || data === null || typeof data !== 'object') {
+    return String(data);
+  }
   const replacer = ' ';
   const spacesCount = 4;
-  if (data === undefined) {
-    return 'undefined';
-  }
-  if (data === null) {
-    return 'null';
-  }
   const currentDepth = depth + 1;
-  const prefix = replacer.repeat(spacesCount * currentDepth - 2);
+  const prefix = replacer.repeat(spacesCount * (depth + 1) - 2);
   const bracePrefix = replacer.repeat(spacesCount * depth);
   if (!Array.isArray(data)) {
-    if (typeof data === 'object') {
-      const keys = _.sortBy(_.keys(data));
-      const lines = keys.map((key) => `${prefix}  ${key}: ${stylish(data[key], currentDepth)}`);
-      return ['{', ...lines, `${bracePrefix}}`].join('\n');
-    }
-    return data.toString();
+    const keys = _.sortBy(_.keys(data));
+    const lines = keys.map((key) => `${prefix}  ${key}: ${stylish(data[key], currentDepth)}`);
+    return ['{', ...lines, `${bracePrefix}}`].join('\n');
   }
-
   const lines = data.flatMap(({
     key, val, oldVal, operation,
   }) => {
