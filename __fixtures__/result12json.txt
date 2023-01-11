@@ -1,0 +1,134 @@
+[
+    {
+        "nodeType": "branch",
+        "operation": "nochange",        
+        "val": [
+            {
+                "nodeType": "leaf",     
+                "operation": "add",     
+                "val": false,
+                "key": "follow"
+            },
+            {
+                "operation": "nochange",
+                "val": "Value 1",       
+                "nodeType": "leaf",     
+                "key": "setting1"
+            },
+            {
+                "nodeType": "leaf",
+                "operation": "delete",
+                "val": 200,
+                "key": "setting2"
+            },
+            {
+                "operation": "update",
+                "val": null,
+                "oldVal": true,
+                "nodeType": "leaf",
+                "key": "setting3"
+            },
+            {
+                "nodeType": "leaf",
+                "operation": "add",
+                "val": "blah blah",
+                "key": "setting4"
+            },
+            {
+                "nodeType": "leaf",
+                "operation": "add",
+                "val": {
+                    "key5": "value5"
+                },
+                "key": "setting5"
+            },
+            {
+                "nodeType": "branch",
+                "operation": "nochange",
+                "val": [
+                    {
+                        "nodeType": "branch",
+                        "operation": "nochange",
+                        "val": [
+                            {
+                                "operation": "update",
+                                "val": "so much",
+                                "oldVal": "",
+                                "nodeType": "leaf",
+                                "key": "wow"
+                            }
+                        ],
+                        "key": "doge"
+                    },
+                    {
+                        "operation": "nochange",
+                        "val": "value",
+                        "nodeType": "leaf",
+                        "key": "key"
+                    },
+                    {
+                        "nodeType": "leaf",
+                        "operation": "add",
+                        "val": "vops",
+                        "key": "ops"
+                    }
+                ],
+                "key": "setting6"
+            }
+        ],
+        "key": "common"
+    },
+    {
+        "nodeType": "branch",
+        "operation": "nochange",
+        "val": [
+            {
+                "operation": "update",
+                "val": "bars",
+                "oldVal": "bas",
+                "nodeType": "leaf",
+                "key": "baz"
+            },
+            {
+                "operation": "nochange",
+                "val": "bar",
+                "nodeType": "leaf",
+                "key": "foo"
+            },
+            {
+                "operation": "update",
+                "val": "str",
+                "oldVal": {
+                    "key": "value"
+                },
+                "nodeType": "leaf",
+                "key": "nest"
+            }
+        ],
+        "key": "group1"
+    },
+    {
+        "nodeType": "leaf",
+        "operation": "delete",
+        "val": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        },
+        "key": "group2"
+    },
+    {
+        "nodeType": "leaf",
+        "operation": "add",
+        "val": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        },
+        "key": "group3"
+    }
+]

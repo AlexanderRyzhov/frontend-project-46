@@ -21,3 +21,6 @@
 
 ### Пример запуска утилиты (сравнение json файлов с вложенными структурами) с выводом результатов в формате plain
 [![asciicast](https://asciinema.org/a/OvG8ob82lZ812TLOzeHLdZPN4.svg)](https://asciinema.org/a/OvG8ob82lZ812TLOzeHLdZPN4)
+
+### Пример запуска утилиты (сравнение json файлов с вложенными структурами) с выводом результатов в формате json
+[![asciicast](https://asciinema.org/a/KEWXtmVG7d3gOOyu96AzGCb2B.svg)](https://asciinema.org/a/KEWXtmVG7d3gOOyu96AzGCb2B)

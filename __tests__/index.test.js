@@ -63,11 +63,22 @@ describe('generateDiff - flat .yml files compare', () => {
   });
 });
 
-describe('generateDiff - nested .jsonfiles compare, plain output', () => {
+describe('generateDiff - nested .json files compare, plain output', () => {
   test('CRUD', () => {
     const filepath1 = getFixturePath('file1.json');
     const filepath2 = getFixturePath('file2.json');
     const result12 = fs.readFileSync(getFixturePath('result12plain.txt'), 'utf-8');
     expect(generateDiff(filepath1, filepath2, 'plain')).toEqual(result12);
+  });
+});
+
+describe('generateDiff - nested .json files compare, json output', () => {
+  test('CRUD', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+    const result12 = fs.readFileSync(getFixturePath('result12json.txt'), 'utf-8');
+    const expected = JSON.parse(result12);
+    const result = JSON.parse(generateDiff(filepath1, filepath2, 'json'));
+    expect(result).toMatchObject(expected);
   });
 });
