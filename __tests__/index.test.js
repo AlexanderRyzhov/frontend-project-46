@@ -3,13 +3,11 @@ import { join, dirname } from 'path';
 import * as fs from 'node:fs';
 import generateDiff from '../src/generatediff.js';
 
-let currentDirname;
-beforeAll(() => {
-  const filename = fileURLToPath(import.meta.url);
-  currentDirname = dirname(filename);
-});
-
-const getFixturePath = (filename) => join(currentDirname, '..', '__fixtures__', filename);
+const getFixturePath = (filename) => {
+  const currentFilename = fileURLToPath(import.meta.url);
+  const currentDirname = dirname(currentFilename);
+  return join(currentDirname, '..', '__fixtures__', filename);
+};
 
 describe('generateDiff - flat .json files compare', () => {
   test('no diff', () => {
