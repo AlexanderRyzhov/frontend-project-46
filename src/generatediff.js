@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { extname } from 'path';
 import * as fs from 'node:fs';
 import parse from './parsers.js';
-import formatDiff from './formatters.js';
+import formatDiff from './formatters/index.js';
 
 const readAndParseFile = (filepath) => {
   const data = fs.readFileSync(filepath);
@@ -51,8 +51,11 @@ const generateDiff = (filepath1, filepath2, format) => {
   const obj1 = readAndParseFile(filepath1);
   const obj2 = readAndParseFile(filepath2);
   const data = genDiff(obj1, obj2);
-  const output = formatDiff(data, format);
-  return output;
+  try {
+    return formatDiff(data, format);
+  } catch (e) {
+    return e.message;
+  }
 };
 
 export default generateDiff;

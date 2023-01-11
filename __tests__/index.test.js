@@ -62,3 +62,12 @@ describe('generateDiff - flat .yml files compare', () => {
     expect(generateDiff(filepath1, filepath0)).toEqual(result10);
   });
 });
+
+describe('generateDiff - nested .jsonfiles compare, plain output', () => {
+  test('CRUD', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+    const result12 = fs.readFileSync(getFixturePath('result12plain.txt'), 'utf-8');
+    expect(generateDiff(filepath1, filepath2, 'plain')).toEqual(result12);
+  });
+});

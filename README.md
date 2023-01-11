@@ -16,5 +16,8 @@
 ### Пример запуска утилиты (сравнение "плоских" yaml файлов)
 [![asciicast](https://asciinema.org/a/bQfLsIQ2TT86dqAKh7cytQUyi.svg)](https://asciinema.org/a/bQfLsIQ2TT86dqAKh7cytQUyi)
 
-### Пример запуска утилиты (сравнение json файлов с вложенными структурами)
+### Пример запуска утилиты (сравнение json файлов с вложенными структурами) с выводом результатов в формате stylish
 [![asciicast](https://asciinema.org/a/3sEz9pgBRZZaRZIxKff5eLUET.svg)](https://asciinema.org/a/3sEz9pgBRZZaRZIxKff5eLUET)
+
+### Пример запуска утилиты (сравнение json файлов с вложенными структурами) с выводом результатов в формате plain
+[![asciicast](https://asciinema.org/a/OvG8ob82lZ812TLOzeHLdZPN4.svg)](https://asciinema.org/a/OvG8ob82lZ812TLOzeHLdZPN4)
