@@ -1,18 +1,18 @@
 [
     {
         "nodeType": "branch",
-        "operation": "nochange",        
-        "val": [
+        "operation": "nochange",
+        "children": [
             {
-                "nodeType": "leaf",     
-                "operation": "add",     
+                "nodeType": "leaf",
+                "operation": "add",
                 "val": false,
                 "key": "follow"
             },
             {
                 "operation": "nochange",
-                "val": "Value 1",       
-                "nodeType": "leaf",     
+                "val": "Value 1",
+                "nodeType": "leaf",
                 "key": "setting1"
             },
             {
@@ -45,11 +45,11 @@
             {
                 "nodeType": "branch",
                 "operation": "nochange",
-                "val": [
+                "children": [
                     {
                         "nodeType": "branch",
                         "operation": "nochange",
-                        "val": [
+                        "children": [
                             {
                                 "operation": "update",
                                 "val": "so much",
@@ -81,7 +81,7 @@
     {
         "nodeType": "branch",
         "operation": "nochange",
-        "val": [
+        "children": [
             {
                 "operation": "update",
                 "val": "bars",

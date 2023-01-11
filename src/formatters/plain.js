@@ -14,7 +14,7 @@ const stringifyValue = (val) => {
 
 const plain = (data, path = []) => {
   const lines = data.flatMap(({
-    key, val, oldVal, operation, nodeType,
+    key, val, oldVal, operation, nodeType, children,
   }) => {
     let result;
     const keyStr = [...path, key].join('.');
@@ -27,7 +27,7 @@ const plain = (data, path = []) => {
     } else if (operation === 'delete') {
       result = `Property '${keyStr}' was removed`;
     } else if (operation === 'nochange') {
-      result = (nodeType === 'branch') ? plain(val, [...path, key]) : [];
+      result = (nodeType === 'branch') ? plain(children, [...path, key]) : [];
     }
     return result;
   });

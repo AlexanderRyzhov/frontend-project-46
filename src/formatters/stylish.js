@@ -17,21 +17,23 @@ const stylish = (data, depth = 0) => {
   const currentDepth = depth + 1;
   if (Array.isArray(data)) {
     lines = data.flatMap(({
-      key, val, oldVal, operation,
+      key, val, oldVal, operation, nodeType, children,
     }) => {
-      let result = [];
-      const valStr = stylish(val, currentDepth);
-      if (operation === 'update') {
-        const oldValStr = stylish(oldVal, currentDepth);
-        result = [`${prefix}- ${key}: ${oldValStr}`, `${prefix}+ ${key}: ${valStr}`];
-      } else if (operation === 'add') {
-        result = `${prefix}+ ${key}: ${valStr}`;
-      } else if (operation === 'delete') {
-        result = `${prefix}- ${key}: ${valStr}`;
-      } else if (operation === 'nochange') {
-        result = `${prefix}  ${key}: ${valStr}`;
+      const valStr = (nodeType === 'branch') ? stylish(children, currentDepth) : stylish(val, currentDepth);
+      switch (operation) {
+        case 'update': {
+          const oldValStr = stylish(oldVal, currentDepth);
+          return [`${prefix}- ${key}: ${oldValStr}`, `${prefix}+ ${key}: ${valStr}`];
+        }
+        case 'add':
+          return `${prefix}+ ${key}: ${valStr}`;
+        case 'delete':
+          return `${prefix}- ${key}: ${valStr}`;
+        case 'nochange':
+          return `${prefix}  ${key}: ${valStr}`;
+        default:
+          return [];
       }
-      return result;
     });
   } else {
     const keys = _.sortBy(_.keys(data));
