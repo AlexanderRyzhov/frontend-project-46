@@ -12,11 +12,10 @@ const stylish = (data, depth = 0) => {
   if (data === undefined || data === null || typeof data !== 'object') {
     return String(data);
   }
-  let lines;
   const { prefix, bracePrefix } = getPrefixes(depth);
   const currentDepth = depth + 1;
   if (Array.isArray(data)) {
-    lines = data.flatMap(({
+    const lines = data.flatMap(({
       key, val, oldVal, operation, nodeType, children,
     }) => {
       const valStr = (nodeType === 'branch') ? stylish(children, currentDepth) : stylish(val, currentDepth);
@@ -35,10 +34,10 @@ const stylish = (data, depth = 0) => {
           return [];
       }
     });
-  } else {
-    const keys = _.sortBy(_.keys(data));
-    lines = keys.map((key) => `${prefix}  ${key}: ${stylish(data[key], currentDepth)}`);
+    return ['{', ...lines, `${bracePrefix}}`].join('\n');
   }
+  const keys = _.sortBy(_.keys(data));
+  const lines = keys.map((key) => `${prefix}  ${key}: ${stylish(data[key], currentDepth)}`);
   return ['{', ...lines, `${bracePrefix}}`].join('\n');
 };
 
