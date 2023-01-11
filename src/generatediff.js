@@ -17,6 +17,17 @@ const getAllKeys = (obj1, obj2) => {
   return keys;
 };
 
+const composeLeafVal1Val2 = (key, val1, val2) => {
+  if (val1 === val2) {
+    return {
+      key, operation: 'nochange', val: val1, nodeType: 'leaf',
+    };
+  }
+  return {
+    key, operation: 'update', val: val2, oldVal: val1, nodeType: 'leaf',
+  };
+};
+
 const genDiff = (tree1, tree2) => {
   const keys = getAllKeys(tree1, tree2);
   const diffs = keys.map((key) => {
@@ -28,26 +39,13 @@ const genDiff = (tree1, tree2) => {
           key, nodeType: 'branch', operation: 'nochange', children: genDiff(val1, val2),
         };
       }
-      if (val1 === val2) {
-        return {
-          key, operation: 'nochange', val: val1, nodeType: 'leaf',
-        };
-      }
-      return {
-        key, operation: 'update', val: val2, oldVal: val1, nodeType: 'leaf',
-      };
+      return composeLeafVal1Val2(key, val1, val2);
     }
-    if (_.has(tree1, key)) {
-      return {
-        key, nodeType: 'leaf', operation: 'delete', val: val1,
-      };
-    }
-    if (_.has(tree2, key)) {
-      return {
-        key, nodeType: 'leaf', operation: 'add', val: val2,
-      };
-    }
-    return null;
+    const operation = _.has(tree1, key) ? 'delete' : 'add';
+    const val = _.has(tree1, key) ? val1 : val2;
+    return {
+      key, nodeType: 'leaf', operation, val,
+    };
   });
   return diffs;
 };
