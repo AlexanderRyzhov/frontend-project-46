@@ -1,35 +1,32 @@
 import _ from 'lodash';
 
 const stringifyValue = (val) => {
-  let valStr;
   if (_.isObject(val)) {
-    valStr = '[complex value]';
-  } else if (_.isString(val)) {
-    valStr = `'${val}'`;
-  } else {
-    valStr = String(val);
+    return '[complex value]';
   }
-  return valStr;
+  return (_.isString(val)) ? `'${val}'` : String(val);
 };
 
 const plain = (data, path = []) => {
   const lines = data.flatMap(({
     key, val, oldVal, operation, nodeType, children,
   }) => {
-    let result;
     const keyStr = [...path, key].join('.');
     const valStr = stringifyValue(val);
     if (operation === 'update') {
       const oldValStr = stringifyValue(oldVal);
-      result = `Property '${keyStr}' was updated. From ${oldValStr} to ${valStr}`;
-    } else if (operation === 'add') {
-      result = `Property '${keyStr}' was added with value: ${valStr}`;
-    } else if (operation === 'delete') {
-      result = `Property '${keyStr}' was removed`;
-    } else if (operation === 'nochange') {
-      result = (nodeType === 'branch') ? plain(children, [...path, key]) : [];
+      return `Property '${keyStr}' was updated. From ${oldValStr} to ${valStr}`;
     }
-    return result;
+    if (operation === 'add') {
+      return `Property '${keyStr}' was added with value: ${valStr}`;
+    }
+    if (operation === 'delete') {
+      return `Property '${keyStr}' was removed`;
+    }
+    if (operation === 'nochange') {
+      return (nodeType === 'branch') ? plain(children, [...path, key]) : [];
+    }
+    throw new Error(`Unknown operation: '${operation}'.`);
   });
   return lines.join('\n');
 };
