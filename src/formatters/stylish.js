@@ -23,10 +23,7 @@ const stylish = (data, depth = 0) => {
       const valStr = stylish(val, currentDepth);
       if (operation === 'update') {
         const oldValStr = stylish(oldVal, currentDepth);
-        result = [
-          `${prefix}- ${key}: ${oldValStr}`,
-          `${prefix}+ ${key}: ${valStr}`,
-        ];
+        result = [`${prefix}- ${key}: ${oldValStr}`, `${prefix}+ ${key}: ${valStr}`];
       } else if (operation === 'add') {
         result = `${prefix}+ ${key}: ${valStr}`;
       } else if (operation === 'delete') {

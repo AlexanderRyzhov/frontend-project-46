@@ -27,12 +27,10 @@ const genDiff = (tree1, tree2) => {
     if (_.has(tree1, key) && _.has(tree2, key)) {
       if (typeof val1 === 'object' && typeof val2 === 'object') {
         diff = { nodeType: 'branch', operation: 'nochange', val: genDiff(val1, val2) };
+      } else if (val1 === val2) {
+        diff = { operation: 'nochange', val: val1, nodeType: 'leaf' };
       } else {
-        if (val1 === val2) {
-          diff = { operation: 'nochange', val: val1 };
-        } else {
-          diff = { operation: 'update', val: val2, oldVal: val1 };
-        }
+        diff = { operation: 'update', val: val2, oldVal: val1 };
         diff.nodeType = 'leaf';
       }
     } else if (_.has(tree1, key)) {
@@ -40,9 +38,7 @@ const genDiff = (tree1, tree2) => {
     } else if (_.has(tree2, key)) {
       diff = { nodeType: 'leaf', operation: 'add', val: val2 };
     }
-    diff.key = key;
-    diffs = [...diffs, diff];
-    return diffs;
+    diffs = [...diffs, { ...diff, key }];
   });
   return diffs;
 };

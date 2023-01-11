@@ -27,12 +27,7 @@ const plain = (data, path = []) => {
     } else if (operation === 'delete') {
       result = `Property '${keyStr}' was removed`;
     } else if (operation === 'nochange') {
-      if (nodeType === 'branch') {
-        const newPath = [...path, key];
-        result = plain(val, newPath);
-      } else {
-        result = [];
-      }
+      result = (nodeType === 'branch') ? plain(val, [...path, key]) : [];
     }
     return result;
   });
