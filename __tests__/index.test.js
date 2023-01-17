@@ -9,60 +9,36 @@ const getFixturePath = (filename) => {
   return join(currentDirname, '..', '__fixtures__', filename);
 };
 
-describe('generateDiff - flat .json files compare', () => {
-  test('no diff', () => {
-    const filepath1 = getFixturePath('file1.json');
-    const result11 = fs.readFileSync(getFixturePath('result11.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath1)).toEqual(result11);
-  });
-  test('CRUD', () => {
-    const filepath1 = getFixturePath('file1.json');
-    const filepath2 = getFixturePath('file2.json');
-    const result12 = fs.readFileSync(getFixturePath('result12.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath2)).toEqual(result12);
-  });
-  test('empty->not empty', () => {
-    const filepath0 = getFixturePath('file0.json');
-    const filepath1 = getFixturePath('file1.json');
-    const result01 = fs.readFileSync(getFixturePath('result01.txt'), 'utf-8');
-    expect(generateDiff(filepath0, filepath1)).toEqual(result01);
-  });
-  test('not empty -> empty', () => {
-    const filepath0 = getFixturePath('file0.json');
-    const filepath1 = getFixturePath('file1.json');
-    const result10 = fs.readFileSync(getFixturePath('result10.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath0)).toEqual(result10);
+describe('generateDiff .json files compare', () => {
+  test.each([
+    ['no diff', 'file1.json', 'file1.json', 'result11.txt'],
+    ['CRUD', 'file1.json', 'file2.json', 'result12.txt'],
+    ['empty->not empty', 'file0.json', 'file1.json', 'result01.txt'],
+    ['not empty -> empty', 'file1.json', 'file0.json', 'result10.txt'],
+  ])('%s', (testName, file1, file2, output) => {
+    const filepath1 = getFixturePath(file1);
+    const filepath2 = getFixturePath(file2);
+    const result = fs.readFileSync(getFixturePath(output), 'utf-8');
+    expect(generateDiff(filepath1, filepath2)).toEqual(result);
   });
 });
 
-describe('generateDiff - flat .yml files compare', () => {
-  test('no diff', () => {
-    const filepath1 = getFixturePath('file1.yml');
-    const result11 = fs.readFileSync(getFixturePath('result11.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath1)).toEqual(result11);
-  });
-  test('CRUD', () => {
-    const filepath1 = getFixturePath('file1.yml');
-    const filepath2 = getFixturePath('file2.yml');
-    const result12 = fs.readFileSync(getFixturePath('result12.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath2)).toEqual(result12);
-  });
-  test('empty->not empty', () => {
-    const filepath0 = getFixturePath('file0.yml');
-    const filepath1 = getFixturePath('file1.yml');
-    const result01 = fs.readFileSync(getFixturePath('result01.txt'), 'utf-8');
-    expect(generateDiff(filepath0, filepath1)).toEqual(result01);
-  });
-  test('not empty -> empty', () => {
-    const filepath0 = getFixturePath('file0.yml');
-    const filepath1 = getFixturePath('file1.yml');
-    const result10 = fs.readFileSync(getFixturePath('result10.txt'), 'utf-8');
-    expect(generateDiff(filepath1, filepath0)).toEqual(result10);
+describe('generateDiff .yml files compare', () => {
+  test.each([
+    ['no diff', 'file1.yml', 'file1.yml', 'result11.txt'],
+    ['CRUD', 'file1.yml', 'file2.yml', 'result12.txt'],
+    ['empty->not empty', 'file0.yml', 'file1.yml', 'result01.txt'],
+    ['not empty -> empty', 'file1.yml', 'file0.yml', 'result10.txt'],
+  ])('%s', (testName, file1, file2, output) => {
+    const filepath1 = getFixturePath(file1);
+    const filepath2 = getFixturePath(file2);
+    const result = fs.readFileSync(getFixturePath(output), 'utf-8');
+    expect(generateDiff(filepath1, filepath2)).toEqual(result);
   });
 });
 
-describe('generateDiff - nested .json files compare, plain output', () => {
-  test('CRUD', () => {
+describe('generateDiff - nested .json files compare, ', () => {
+  test('plain output', () => {
     const filepath1 = getFixturePath('file1.json');
     const filepath2 = getFixturePath('file2.json');
     const result12 = fs.readFileSync(getFixturePath('result12plain.txt'), 'utf-8');
@@ -71,7 +47,7 @@ describe('generateDiff - nested .json files compare, plain output', () => {
 });
 
 describe('generateDiff - nested .json files compare, json output', () => {
-  test('CRUD', () => {
+  test('json output', () => {
     const filepath1 = getFixturePath('file1.json');
     const filepath2 = getFixturePath('file2.json');
     const result12 = fs.readFileSync(getFixturePath('result12json.txt'), 'utf-8');
