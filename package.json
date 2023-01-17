@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "type": "module",
-  "description": "[![Actions Status](https://github.com/AlexanderRyzhov/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/AlexanderRyzhov/frontend-project-46/actions)",
+  "description": "Gendiff - cli utility to compare 2 config files and find difference",
   "main": "src/generatediff.js",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
