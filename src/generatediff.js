@@ -17,7 +17,7 @@ const getAllKeys = (obj1, obj2) => {
   return keys;
 };
 
-const composeLeafVal1Val2 = (key, val1, val2) => {
+const composeLeaf = (key, val1, val2) => {
   if (val1 === val2) {
     return {
       key, operation: 'nochange', val: val1, nodeType: 'leaf',
@@ -39,7 +39,7 @@ const genDiff = (tree1, tree2) => {
           key, nodeType: 'branch', operation: 'nochange', children: genDiff(val1, val2),
         };
       }
-      return composeLeafVal1Val2(key, val1, val2);
+      return composeLeaf(key, val1, val2);
     }
     const operation = _.has(tree1, key) ? 'delete' : 'add';
     const val = _.has(tree1, key) ? val1 : val2;
