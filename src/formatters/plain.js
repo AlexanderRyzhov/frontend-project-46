@@ -8,26 +8,27 @@ const stringifyValue = (val) => {
 };
 
 const plain = (data, path = []) => {
-  const lines = data.flatMap(({
+  const formatLine = ({
     key, val, oldVal, operation, nodeType, children,
   }) => {
     const keyStr = [...path, key].join('.');
     const valStr = stringifyValue(val);
-    if (operation === 'update') {
-      const oldValStr = stringifyValue(oldVal);
-      return `Property '${keyStr}' was updated. From ${oldValStr} to ${valStr}`;
+    switch (operation) {
+      case 'update': {
+        const oldValStr = stringifyValue(oldVal);
+        return `Property '${keyStr}' was updated. From ${oldValStr} to ${valStr}`;
+      }
+      case 'add':
+        return `Property '${keyStr}' was added with value: ${valStr}`;
+      case 'delete':
+        return `Property '${keyStr}' was removed`;
+      case 'nochange':
+        return (nodeType === 'branch') ? plain(children, [...path, key]) : [];
+      default:
+        throw new Error(`Unknown operation: '${operation}'.`);
     }
-    if (operation === 'add') {
-      return `Property '${keyStr}' was added with value: ${valStr}`;
-    }
-    if (operation === 'delete') {
-      return `Property '${keyStr}' was removed`;
-    }
-    if (operation === 'nochange') {
-      return (nodeType === 'branch') ? plain(children, [...path, key]) : [];
-    }
-    throw new Error(`Unknown operation: '${operation}'.`);
-  });
+  };
+  const lines = data.flatMap(formatLine);
   return lines.join('\n');
 };
 
