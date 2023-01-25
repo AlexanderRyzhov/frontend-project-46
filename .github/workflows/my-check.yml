@@ -1,37 +1,7 @@
 name: my-check
 on: push
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      # Клонируем репозиторий
-      - uses: actions/checkout@v3
-      # Устанавливаем Node.js
-      - uses: actions/setup-node@v2
-      # Ставим зависимости
-      - run: npm install
-      - run: make test
-  test-coverage:
-    runs-on: ubuntu-latest
-    steps:
-      # Клонируем репозиторий
-      - uses: actions/checkout@v3
-      # Устанавливаем Node.js
-      - uses: actions/setup-node@v2
-      # Ставим зависимости
-      - run: npm install
-      - run: make test
-      - name: Test & publish code coverage
-        # Publish code coverage on Code Climate
-        # https://github.com/paambaati/codeclimate-action
-        uses: paambaati/codeclimate-action@v3.0.0
-        # Add Code Climate secret key
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: make test-coverage
-          debug: true
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
       # Клонируем репозиторий
@@ -43,4 +13,19 @@ jobs:
           cache: 'npm' # ускоряет повторные сборки
       # Ставим зависимости
       - run: npm install
-      - run: make lint
+      # Запуск lint
+      - name: run lint
+        run: make lint
+      # Запуск тестов
+      - name: run tests
+        run: make test
+      # Запуск расчета покрытия тестами и публикации на codeclimate  
+      - name: test & publish code coverage
+        # Publish code coverage on Code Climate
+        uses: paambaati/codeclimate-action@v3.0.0
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
