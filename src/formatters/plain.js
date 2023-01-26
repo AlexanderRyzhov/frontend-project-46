@@ -13,6 +13,9 @@ const plain = (data, path = []) => {
   }) => {
     const keyStr = [...path, key].join('.');
     const valStr = stringifyValue(val);
+    if (nodeType === 'branch') {
+      return plain(children, [...path, key]);
+    }
     switch (operation) {
       case 'update': {
         const oldValStr = stringifyValue(oldVal);
@@ -23,7 +26,7 @@ const plain = (data, path = []) => {
       case 'delete':
         return `Property '${keyStr}' was removed`;
       case 'nochange':
-        return (nodeType === 'branch') ? plain(children, [...path, key]) : [];
+        return [];
       default:
         throw new Error(`Unknown operation: '${operation}'.`);
     }
