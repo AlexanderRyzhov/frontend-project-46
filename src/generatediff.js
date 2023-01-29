@@ -51,7 +51,6 @@ const generateDiff = (filepath1, filepath2, format) => {
   const obj1 = readAndParseFile(filepath1);
   const obj2 = readAndParseFile(filepath2);
   const data = genDiff(obj1, obj2);
-  console.log(data);
   try {
     return formatDiff(data, format);
   } catch (e) {
