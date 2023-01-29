@@ -13,7 +13,7 @@ const plain = (data, path = []) => {
   }) => {
     const keyStr = [...path, key].join('.');
     const valStr = stringifyValue(val);
-    if (nodeType === 'branch') {
+    if (nodeType === 'complex') {
       return plain(children, [...path, key]);
     }
     switch (operation) {

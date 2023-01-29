@@ -8,21 +8,36 @@ const getPrefixes = (depth) => {
   return { prefix, bracePrefix };
 };
 
-const stylish = (data, depth = 0) => {
+const stringify = (data, depth = 0) => {
   if (data === undefined || data === null || typeof data !== 'object') {
     return String(data);
   }
+  const { prefix, bracePrefix } = getPrefixes(depth);
+  const currentDepth = depth + 1;
+  const keys = _.sortBy(_.keys(data));
+  const lines = keys.map((key) => `${prefix}  ${key}: ${stringify(data[key], currentDepth)}`);
+  return ['{', ...lines, `${bracePrefix}}`].join('\n');
+};
+
+const stylish = (data, depth = 0) => {
   const { prefix, bracePrefix } = getPrefixes(depth);
   const currentDepth = depth + 1;
   if (Array.isArray(data)) {
     const lines = data.flatMap(({
       key, val, oldVal, operation, nodeType, children,
     }) => {
-      const valStr = (nodeType === 'branch') ? stylish(children, currentDepth) : stylish(val, currentDepth);
+      if (nodeType === 'complex') {
+        const valStr = stylish(children, currentDepth);
+        return `${prefix}  ${key}: ${valStr}`;
+      }
+      const valStr = stringify(val, currentDepth);
       switch (operation) {
         case 'update': {
-          const oldValStr = stylish(oldVal, currentDepth);
-          return [`${prefix}- ${key}: ${oldValStr}`, `${prefix}+ ${key}: ${valStr}`];
+          const oldValStr = stringify(oldVal, currentDepth);
+          return [
+            `${prefix}- ${key}: ${oldValStr}`,
+            `${prefix}+ ${key}: ${valStr}`,
+          ];
         }
         case 'add':
           return `${prefix}+ ${key}: ${valStr}`;
@@ -36,9 +51,7 @@ const stylish = (data, depth = 0) => {
     });
     return ['{', ...lines, `${bracePrefix}}`].join('\n');
   }
-  const keys = _.sortBy(_.keys(data));
-  const lines = keys.map((key) => `${prefix}  ${key}: ${stylish(data[key], currentDepth)}`);
-  return ['{', ...lines, `${bracePrefix}}`].join('\n');
+  return stringify(data, depth);
 };
 
 export default stylish;

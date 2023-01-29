@@ -1,10 +1,9 @@
 [
     {
-        "nodeType": "branch",
-        "operation": "nochange",
+        "nodeType": "complex",
         "children": [
             {
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "operation": "add",
                 "val": false,
                 "key": "follow"
@@ -12,11 +11,11 @@
             {
                 "operation": "nochange",
                 "val": "Value 1",
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "key": "setting1"
             },
             {
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "operation": "delete",
                 "val": 200,
                 "key": "setting2"
@@ -25,17 +24,17 @@
                 "operation": "update",
                 "val": null,
                 "oldVal": true,
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "key": "setting3"
             },
             {
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "operation": "add",
                 "val": "blah blah",
                 "key": "setting4"
             },
             {
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "operation": "add",
                 "val": {
                     "key5": "value5"
@@ -43,18 +42,16 @@
                 "key": "setting5"
             },
             {
-                "nodeType": "branch",
-                "operation": "nochange",
+                "nodeType": "complex",
                 "children": [
                     {
-                        "nodeType": "branch",
-                        "operation": "nochange",
+                        "nodeType": "complex",
                         "children": [
                             {
                                 "operation": "update",
                                 "val": "so much",
                                 "oldVal": "",
-                                "nodeType": "leaf",
+                                "nodeType": "simple",
                                 "key": "wow"
                             }
                         ],
@@ -63,11 +60,11 @@
                     {
                         "operation": "nochange",
                         "val": "value",
-                        "nodeType": "leaf",
+                        "nodeType": "simple",
                         "key": "key"
                     },
                     {
-                        "nodeType": "leaf",
+                        "nodeType": "simple",
                         "operation": "add",
                         "val": "vops",
                         "key": "ops"
@@ -79,20 +76,19 @@
         "key": "common"
     },
     {
-        "nodeType": "branch",
-        "operation": "nochange",
+        "nodeType": "complex",
         "children": [
             {
                 "operation": "update",
                 "val": "bars",
                 "oldVal": "bas",
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "key": "baz"
             },
             {
                 "operation": "nochange",
                 "val": "bar",
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "key": "foo"
             },
             {
@@ -101,14 +97,14 @@
                 "oldVal": {
                     "key": "value"
                 },
-                "nodeType": "leaf",
+                "nodeType": "simple",
                 "key": "nest"
             }
         ],
         "key": "group1"
     },
     {
-        "nodeType": "leaf",
+        "nodeType": "simple",
         "operation": "delete",
         "val": {
             "abc": 12345,
@@ -119,7 +115,7 @@
         "key": "group2"
     },
     {
-        "nodeType": "leaf",
+        "nodeType": "simple",
         "operation": "add",
         "val": {
             "deep": {
