@@ -9,49 +9,45 @@ const getPrefixes = (depth) => {
 };
 
 const stringify = (data, depth = 0) => {
-  if (data === undefined || data === null || typeof data !== 'object') {
-    return String(data);
+  if (_.isPlainObject(data)) {
+    const { prefix, bracePrefix } = getPrefixes(depth);
+    const currentDepth = depth + 1;
+    const keys = _.sortBy(_.keys(data));
+    const lines = keys.map((key) => `${prefix}  ${key}: ${stringify(data[key], currentDepth)}`);
+    return ['{', ...lines, `${bracePrefix}}`].join('\n');
   }
-  const { prefix, bracePrefix } = getPrefixes(depth);
-  const currentDepth = depth + 1;
-  const keys = _.sortBy(_.keys(data));
-  const lines = keys.map((key) => `${prefix}  ${key}: ${stringify(data[key], currentDepth)}`);
-  return ['{', ...lines, `${bracePrefix}}`].join('\n');
+  return String(data);
 };
 
 const stylish = (data, depth = 0) => {
   const { prefix, bracePrefix } = getPrefixes(depth);
   const currentDepth = depth + 1;
-  if (Array.isArray(data)) {
-    const lines = data.flatMap(({
-      key, val, oldVal, operation, nodeType, children,
-    }) => {
-      if (nodeType === 'complex') {
-        const valStr = stylish(children, currentDepth);
+  const lines = data.flatMap(({
+    key, val, oldVal, nodeType, children,
+  }) => {
+    const valStr = (nodeType === 'complex') ? stylish(children, currentDepth) : stringify(val, currentDepth);
+    switch (nodeType) {
+      case 'complex': {
         return `${prefix}  ${key}: ${valStr}`;
       }
-      const valStr = stringify(val, currentDepth);
-      switch (operation) {
-        case 'update': {
-          const oldValStr = stringify(oldVal, currentDepth);
-          return [
-            `${prefix}- ${key}: ${oldValStr}`,
-            `${prefix}+ ${key}: ${valStr}`,
-          ];
-        }
-        case 'add':
-          return `${prefix}+ ${key}: ${valStr}`;
-        case 'delete':
-          return `${prefix}- ${key}: ${valStr}`;
-        case 'nochange':
-          return `${prefix}  ${key}: ${valStr}`;
-        default:
-          return [];
+      case 'update': {
+        const oldValStr = stringify(oldVal, currentDepth);
+        return [
+          `${prefix}- ${key}: ${oldValStr}`,
+          `${prefix}+ ${key}: ${valStr}`,
+        ];
       }
-    });
-    return ['{', ...lines, `${bracePrefix}}`].join('\n');
-  }
-  return stringify(data, depth);
+      case 'add':
+        return `${prefix}+ ${key}: ${valStr}`;
+      case 'delete':
+        return `${prefix}- ${key}: ${valStr}`;
+      case 'nochange':
+        return `${prefix}  ${key}: ${valStr}`;
+      default:
+        return [];
+    }
+  });
+  return ['{', ...lines, `${bracePrefix}}`].join('\n');
 };
 
 export default stylish;

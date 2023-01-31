@@ -9,14 +9,13 @@ const stringifyValue = (val) => {
 
 const plain = (data, path = []) => {
   const formatLine = ({
-    key, val, oldVal, operation, nodeType, children,
+    key, val, oldVal, nodeType, children,
   }) => {
     const keyStr = [...path, key].join('.');
     const valStr = stringifyValue(val);
-    if (nodeType === 'complex') {
-      return plain(children, [...path, key]);
-    }
-    switch (operation) {
+    switch (nodeType) {
+      case 'complex':
+        return plain(children, [...path, key]);
       case 'update': {
         const oldValStr = stringifyValue(oldVal);
         return `Property '${keyStr}' was updated. From ${oldValStr} to ${valStr}`;
@@ -28,7 +27,7 @@ const plain = (data, path = []) => {
       case 'nochange':
         return [];
       default:
-        throw new Error(`Unknown operation: '${operation}'.`);
+        throw new Error(`Unknown nodeType: '${nodeType}'.`);
     }
   };
   const lines = data.flatMap(formatLine);

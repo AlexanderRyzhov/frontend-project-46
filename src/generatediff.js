@@ -23,26 +23,19 @@ const genDiff = (tree1, tree2) => {
     const val1 = _.get(tree1, key);
     const val2 = _.get(tree2, key);
     if (typeof val1 === 'object' && typeof val2 === 'object') {
-      return {
-        key, nodeType: 'complex', children: genDiff(val1, val2),
-      };
+      return { key, nodeType: 'complex', children: genDiff(val1, val2) };
     }
-    const nodeType = 'simple';
     if (val1 === val2) {
-      return {
-        key, operation: 'nochange', val: val1, nodeType,
-      };
+      return { key, nodeType: 'nochange', val: val1 };
     }
     if (_.has(tree1, key) && _.has(tree2, key)) {
       return {
-        key, operation: 'update', val: val2, oldVal: val1, nodeType,
+        key, nodeType: 'update', val: val2, oldVal: val1,
       };
     }
-    const operation = _.has(tree2, key) ? 'add' : 'delete';
+    const nodeType = _.has(tree2, key) ? 'add' : 'delete';
     const val = _.has(tree1, key) ? val1 : val2;
-    return {
-      key, nodeType, operation, val,
-    };
+    return { key, nodeType, val };
   });
   return diffs;
 };

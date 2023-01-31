@@ -3,39 +3,33 @@
         "nodeType": "complex",
         "children": [
             {
-                "nodeType": "simple",
-                "operation": "add",
+                "nodeType": "add",
                 "val": false,
                 "key": "follow"
             },
             {
-                "operation": "nochange",
+                "nodeType": "nochange",
                 "val": "Value 1",
-                "nodeType": "simple",
                 "key": "setting1"
             },
             {
-                "nodeType": "simple",
-                "operation": "delete",
+                "nodeType": "delete",
                 "val": 200,
                 "key": "setting2"
             },
             {
-                "operation": "update",
+                "nodeType": "update",
                 "val": null,
                 "oldVal": true,
-                "nodeType": "simple",
                 "key": "setting3"
             },
             {
-                "nodeType": "simple",
-                "operation": "add",
+                "nodeType": "add",
                 "val": "blah blah",
                 "key": "setting4"
             },
             {
-                "nodeType": "simple",
-                "operation": "add",
+                "nodeType": "add",
                 "val": {
                     "key5": "value5"
                 },
@@ -48,24 +42,21 @@
                         "nodeType": "complex",
                         "children": [
                             {
-                                "operation": "update",
+                                "nodeType": "update",
                                 "val": "so much",
                                 "oldVal": "",
-                                "nodeType": "simple",
                                 "key": "wow"
                             }
                         ],
                         "key": "doge"
                     },
                     {
-                        "operation": "nochange",
+                        "nodeType": "nochange",
                         "val": "value",
-                        "nodeType": "simple",
                         "key": "key"
                     },
                     {
-                        "nodeType": "simple",
-                        "operation": "add",
+                        "nodeType": "add",
                         "val": "vops",
                         "key": "ops"
                     }
@@ -79,33 +70,29 @@
         "nodeType": "complex",
         "children": [
             {
-                "operation": "update",
+                "nodeType": "update",
                 "val": "bars",
                 "oldVal": "bas",
-                "nodeType": "simple",
                 "key": "baz"
             },
             {
-                "operation": "nochange",
+                "nodeType": "nochange",
                 "val": "bar",
-                "nodeType": "simple",
                 "key": "foo"
             },
             {
-                "operation": "update",
+                "nodeType": "update",
                 "val": "str",
                 "oldVal": {
                     "key": "value"
                 },
-                "nodeType": "simple",
                 "key": "nest"
             }
         ],
         "key": "group1"
     },
     {
-        "nodeType": "simple",
-        "operation": "delete",
+        "nodeType": "delete",
         "val": {
             "abc": 12345,
             "deep": {
@@ -115,8 +102,7 @@
         "key": "group2"
     },
     {
-        "nodeType": "simple",
-        "operation": "add",
+        "nodeType": "add",
         "val": {
             "deep": {
                 "id": {
